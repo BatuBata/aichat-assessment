@@ -1,64 +1,144 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## AICHAT ASSESMENT
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Built With
 
-## About Laravel
+* [![Laravel][Laravel.com]][Laravel-url]
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Database
+* Mysql
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Installation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Requirement**
+- PHP >= 7.4
+- MySQL  >= 8.0
+- Composer
 
-## Learning Laravel
+**Setup**
+1. Clone the repo
+   ```sh
+   git clone https://github.com/BatuBata/aichat-assessment.git
+   ```
+2. Move to project
+   ```sh
+   cd aichat-assessment
+   ```
+3. Install Composer package
+   ```sh
+   composer install
+   ```
+4. Copy env example from the project
+   ```sh
+   cp .env.example .env
+   ```
+5. Setup the database config from env file for your computer/server
+   ```sh
+    DB_CONNECTION=
+    DB_HOST=
+    DB_PORT=
+    DB_DATABASE=
+    DB_USERNAME=
+    DB_PASSWORD=
+   ```
+6. Run database migration and seeder
+    ```sh
+     php artisan migrate:fresh --seed
+    ```
+7. Generate key for your project
+    ```sh
+     php artisan key:generate
+    ```
+8. Run your project
+    ```sh
+     php artisan serve
+    ```
+9. Run laravel scheduller locally
+    ```sh
+     php artisan scheduller:work
+    ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### API Documentation
 
-## Laravel Sponsors
+**Table**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+| URL                                               | METHOD            |
+| ------------------------------------------------- | ----------------- |
+| /api/customer/{customer_id}/eligible-check        | GET               |
+| /api/customer/{customer_id}/validate-submission   | GET               |
 
-### Premium Partners
+**Request**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+`GET /api/customer/{customer_id}/eligible-check`
 
-## Contributing
+    curl -i -H 'Accept: application/json' http://localhost:8000/api/customer/1/eligible-check
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Response**
 
-## Code of Conduct
+    HTTP/1.1 200 OK
+    Date: Thu, 24 July 2022 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    {
+        "code": 200,
+        "status": true,
+        "message": "Successfuly locked a voucher for customer",
+        "data": {
+            "id": 4,
+            "first_name": "Jeramie",
+            "last_name": "Schumm",
+            "gender": "Female",
+            "date_of_birth": "08-08-1997",
+            "contact_number": "731.715.4013",
+            "email": "buckridge.ramon@strosin.com",
+            "voucher": {
+                "id": 2,
+                "code": "8aePfm",
+                "status": "Locked",
+                "expired_at": "25-07-2022 15:38:28"
+            }
+        }
+    }
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Request**
 
-## License
+`GET /api/customer/{customer_id}/validate-submission`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    curl -i -H 'Accept: application/json' http://localhost:8000/api/customer/1/validate-submission
+
+**Response**
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 July 2022 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+
+    {
+        "code": 200,
+        "status": true,
+        "message": "Successfuly redeemed a voucher for customer",
+        "data": {
+            "id": 4,
+            "first_name": "Jeramie",
+            "last_name": "Schumm",
+            "gender": "Female",
+            "date_of_birth": "08-08-1997",
+            "contact_number": "731.715.4013",
+            "email": "buckridge.ramon@strosin.com",
+            "voucher": {
+                "id": 2,
+                "code": "8aePfm",
+                "status": "Redeemed",
+                "expired_at": "25-07-2022 15:38:28"
+            }
+        }
+    }
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
